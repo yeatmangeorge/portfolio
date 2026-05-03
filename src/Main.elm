@@ -80,4 +80,8 @@ topicDiv topic =
 view : Model -> Html Msg
 view model =
     div []
-        (List.map topicDiv displayTopics)
+        ([ div [] [ text "George Yeatman" ]
+         , div [] [ text "Software Developer | yeatmangeorge@gmail.com" ]
+         ]
+            ++ List.map topicDiv displayTopics
+        )
