@@ -1,17 +1,25 @@
 module Main exposing (main)
 
 import Browser
-import Html exposing (Html, button, div, text)
+import Browser.Navigation as Navigation
+import Html exposing (Html, div, text)
 import Html.Events exposing (onClick)
 
 
 main : Program () Model Msg
 main =
-    Browser.sandbox
+    Browser.element
         { init = init
-        , view = view
         , update = update
+        , view = view
+        , subscriptions = \_ -> Sub.none
         }
+
+
+links : { linkedin : String }
+links =
+    { linkedin = "https://www.linkedin.com/in/george-yeatman-0a35bb132/"
+    }
 
 
 type alias Model =
@@ -19,26 +27,57 @@ type alias Model =
     }
 
 
-init : Model
-init =
-    { count = 0
-    }
+init : flags -> ( Model, Cmd Msg )
+init _ =
+    ( { count = 0 }
+    , Cmd.none
+    )
 
 
 type Msg
-    = Inc
+    = OpenLinkedIn
 
 
-update : Msg -> Model -> Model
+type Topic
+    = LinkedIn
+
+
+topicToString : Topic -> String
+topicToString topic =
+    case topic of
+        LinkedIn ->
+            "LinkedIn"
+
+
+topicActionMsg : Topic -> Msg
+topicActionMsg topic =
+    case topic of
+        LinkedIn ->
+            OpenLinkedIn
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Inc ->
-            { model | count = model.count + 1 }
+        OpenLinkedIn ->
+            ( model
+            , Navigation.load links.linkedin
+            )
+
+
+displayTopics : List Topic
+displayTopics =
+    [ LinkedIn ]
+
+
+topicDiv : Topic -> Html Msg
+topicDiv topic =
+    div
+        [ onClick (topicActionMsg topic) ]
+        [ text (topicToString topic) ]
 
 
 view : Model -> Html Msg
 view model =
     div []
-        [ div [] [ text (String.fromInt model.count) ]
-        , button [ onClick Inc ] [ text "+" ]
-        ]
+        (List.map topicDiv displayTopics)
