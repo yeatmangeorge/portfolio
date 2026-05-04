@@ -4,13 +4,18 @@ body {
   margin: 0;
   background: #f4f4f4;
   font-family: 'JetBrains Mono', monospace;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .page {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  gap: 16px;
+  min-height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 .card {
@@ -18,48 +23,70 @@ body {
   color: #131811;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
   display: flex;
-  flex-flow: column;
+  flex-direction: column;
   justify-content: space-between;
-  padding: 6mm 5mm 6mm 5mm;
-  line-height: 1.25;
+  width: min(420px, 100%);
+  max-width: 420px;
+  border-radius: 12px;
+  padding: clamp(14px, 2.5vw, 22px);
+  line-height: 1.4;
   box-sizing: border-box;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
 }
 
 .card--clickable {
   cursor: pointer;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-
 .card--clickable:hover {
   transform: translateY(-4px);
   box-shadow: 0 14px 40px rgba(0,0,0,0.2);
 }
-
 .card--clickable:active {
   transform: translateY(0);
   box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
 .heading {
-  font-size: 14pt;
+  font-size: clamp(15px, 4vw, 20px);
+  font-weight: 600;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
 }
 
 .title {
-  font-size: 9pt;
+  font-size: clamp(12px, 3.2vw, 14px);
   font-style: italic;
+  opacity: 0.9;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
 }
 
 .content-divider {
-    height: 12pt;
+  height: 12px;
 }
 
-.content-divider-large{
-    height: 24pt;
+.content-divider-large {
+  height: 24px;
 }
 
 .contact {
-  font-size: 8.5pt;
-  /* gap: 2.5mm; */
+  font-size: clamp(11px, 3vw, 13px);
   display: flex;
   flex-direction: column;
+  gap: 6px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
+}
+
+@media (max-width: 480px) {
+  .card {
+    border-radius: 10px;
+  }
 }
