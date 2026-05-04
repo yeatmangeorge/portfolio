@@ -14,8 +14,6 @@ body {
 }
 
 .card {
-  /* width: 55mm; */
-  /* height: 85mm; */
   background: #EDEEE7;
   color: #131811;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
@@ -27,6 +25,21 @@ body {
   box-sizing: border-box;
 }
 
+.card--clickable {
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card--clickable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.2);
+}
+
+.card--clickable:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
 .heading {
   font-size: 14pt;
 }
@@ -36,9 +49,17 @@ body {
   font-style: italic;
 }
 
+.content-divider {
+    height: 12pt;
+}
+
+.content-divider-large{
+    height: 24pt;
+}
+
 .contact {
   font-size: 8.5pt;
-  gap: 2.5mm;
+  /* gap: 2.5mm; */
   display: flex;
   flex-direction: column;
 }

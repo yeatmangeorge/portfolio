@@ -74,7 +74,7 @@ displayTopics =
 topicDiv : Topic -> Html Msg
 topicDiv topic =
     div
-        [ onClick (topicActionMsg topic) ]
+        [ card, clickableCard, onClick (topicActionMsg topic) ]
         [ text (topicToString topic) ]
 
 
@@ -86,6 +86,11 @@ cssClass name =
 card : Html.Attribute msg
 card =
     cssClass "card"
+
+
+clickableCard : Html.Attribute msg
+clickableCard =
+    cssClass "card--clickable"
 
 
 page : Html.Attribute msg
@@ -103,18 +108,32 @@ title =
     cssClass "title"
 
 
+contact : Html.Attribute msg
 contact =
     cssClass "contact"
+
+
+contentDivider : Html.Attribute msg
+contentDivider =
+    cssClass "content-divider"
+
+
+contentDividerLarge : Html.Attribute msg
+contentDividerLarge =
+    cssClass "content-divider-large"
 
 
 view : Model -> Html Msg
 view model =
     div [ page ]
-        ([ div [ card ]
+        ([ div [ contentDivider ] []
+         , div [ card ]
             [ div [ heading ] [ text "George Yeatman" ]
             , div [ title ] [ text "Software Developer" ]
+            , div [ contentDivider ] []
             , div [ contact ] [ text "yeatmangeorge@gmail.com" ]
             ]
+         , div [ contentDividerLarge ] []
          ]
             ++ List.map topicDiv displayTopics
         )
