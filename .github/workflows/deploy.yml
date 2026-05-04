@@ -33,7 +33,7 @@ jobs:
 
       - name: Copy static files
         run: |
-          cp public/index.html dist/index.html
+          cp -r public/* dist/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
