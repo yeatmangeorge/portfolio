@@ -1,7 +1,10 @@
 SRC=src/Main.elm
 OUTPUT=dist/main.js
-HTML=public/index.html
+OUTPUT_FOLDER=dist
+PUBLIC_FOLDER=public
+HTML=$(PUBLIC_FOLDER)/index.html
 HOOK=hook
+RSYNC_CMD=rsync -a --delete --exclude "main.js" $(PUBLIC_FOLDER)/ $(OUTPUT_FOLDER)/
 
 .PHONY: setup-hooks
 setup-hooks:
@@ -14,16 +17,19 @@ format:
 
 .PHONY: build
 build: format
-	mkdir -p dist
+	mkdir -p $(OUTPUT_FOLDER)
+	$(RSYNC_CMD)
 	elm make $(SRC) --optimize --output=$(OUTPUT)
 
 .PHONY: run
 run: build
 	@echo "Open $(HTML) in your browser"
 
-.PHONY: watch
 watch:
-	elm-live $(SRC) \
-		--open \
-		-- \
-		--output=$(OUTPUT) \
+	mkdir -p $(OUTPUT_FOLDER)
+	$(RSYNC_CMD) && \
+	(elm-live $(SRC) --dir=$(OUTPUT_FOLDER) --open -- --output=$(OUTPUT) & pid=$$!; \
+	trap "kill $$pid" EXIT; \
+	while inotifywait -qq -r -e modify,create,delete $(PUBLIC_FOLDER); do \
+		$(RSYNC_CMD); \
+	done)
