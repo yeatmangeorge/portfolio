@@ -3,6 +3,7 @@ module Main exposing (main)
 import Browser
 import Browser.Navigation as Navigation
 import Html exposing (Html, div, text)
+import Html.Attributes exposing (attribute)
 import Html.Events exposing (onClick)
 
 
@@ -77,11 +78,43 @@ topicDiv topic =
         [ text (topicToString topic) ]
 
 
+cssClass : String -> Html.Attribute msg
+cssClass name =
+    attribute "class" name
+
+
+card : Html.Attribute msg
+card =
+    cssClass "card"
+
+
+page : Html.Attribute msg
+page =
+    cssClass "page"
+
+
+heading : Html.Attribute msg
+heading =
+    cssClass "heading"
+
+
+title : Html.Attribute msg
+title =
+    cssClass "title"
+
+
+contact =
+    cssClass "contact"
+
+
 view : Model -> Html Msg
 view model =
-    div []
-        ([ div [] [ text "George Yeatman" ]
-         , div [] [ text "Software Developer | yeatmangeorge@gmail.com" ]
+    div [ page ]
+        ([ div [ card ]
+            [ div [ heading ] [ text "George Yeatman" ]
+            , div [ title ] [ text "Software Developer" ]
+            , div [ contact ] [ text "yeatmangeorge@gmail.com" ]
+            ]
          ]
             ++ List.map topicDiv displayTopics
         )

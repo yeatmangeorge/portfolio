@@ -1,5 +1,44 @@
-@import url('https://fonts.googleapis.com/css?family=JetBrains+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap');
 
-* {
-    font-family: 'JetBrains Mono', monospace;
+body {
+  margin: 0;
+  background: #f4f4f4;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  /* width: 55mm; */
+  /* height: 85mm; */
+  background: #EDEEE7;
+  color: #131811;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  padding: 6mm 5mm 6mm 5mm;
+  line-height: 1.25;
+  box-sizing: border-box;
+}
+
+.heading {
+  font-size: 14pt;
+}
+
+.title {
+  font-size: 9pt;
+  font-style: italic;
+}
+
+.contact {
+  font-size: 8.5pt;
+  gap: 2.5mm;
+  display: flex;
+  flex-direction: column;
 }
